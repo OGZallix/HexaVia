@@ -6,7 +6,7 @@ const rowsSelect = document.getElementById('rows');
 const colorPicker = document.getElementById('colorPicker');
 const textureInput = document.getElementById('textureInput');
 
-// === VARIÁVEIS GLOBAIS ===
+// === GLOBAL VARIABLES ===
 let hexRadius = 40;
 let hexHeight = Math.sqrt(3) * hexRadius;
 let cols = 12;
@@ -16,14 +16,14 @@ let currentColor = '#ffeb3b';
 let useTexture = false;
 let isRotated = false;
 let selectedTextureFolder = null;
-// Novo: armazena índice de textura por célula para alternância
+// New: Stores texture index per cell for toggling.
 let cellTextureIndexes = [];
 
-// NOVOS OFFSETS PARA CENTRALIZAR A GRADE NO CANVAS
+// NEW OFFSETS TO CENTER THE GRID IN CANVAS
 let offsetX = 0;
 let offsetY = 0;
 
-// === INICIALIZAÇÃO ===
+// === INITIALIZATION ===
 function createGrid(c, r, rotated = false) {
     cols = c;
     rows = r;
@@ -114,7 +114,7 @@ function pointInHex(px, py, hx, hy) {
     return Math.hypot(px - hx, py - hy) < hexRadius;
 }
 
-// Clique: considera scaling do canvas para zoom/scroll/resize
+// Click: Considers canvas scaling for zoom/scroll/resize.
 canvas.addEventListener('click', function(e) {
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
@@ -126,7 +126,7 @@ canvas.addEventListener('click', function(e) {
         for (let col = 0; col < cols; col++) {
             const { x, y } = getHexPosition(row, col);
             if (pointInHex(mx, my, x, y)) {
-                // Paleta fixa
+                // Fixed palette
                 if (selectedFixedTexturePalette !== null) {
                     const pal = fixedTexturePalette[selectedFixedTexturePalette];
                     const tex = pal.textures[selectedFixedTexture];
@@ -145,7 +145,7 @@ canvas.addEventListener('click', function(e) {
                         grid[row][col].color = '#4fc3f7';
                     }
                 }
-                // Paleta customizada
+                // Custom palette
                 else if (useTexture && selectedTextureFolder !== null && texturePalette[selectedTextureFolder].images.length > 0) {
                     const folder = texturePalette[selectedTextureFolder];
                     let img = null;
@@ -161,12 +161,12 @@ canvas.addEventListener('click', function(e) {
                         grid[row][col].color = '#4fc3f7';
                     }
                 }
-                // Cor
+                // Color
                 else if (currentColor) {
                     grid[row][col].texture = null;
                     grid[row][col].color = currentColor;
                 }
-                // Nenhuma cor selecionada
+                // No color selected
                 else {
                     grid[row][col].texture = null;
                     grid[row][col].color = '#4fc3f7';
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderFixedTexturePalette();
 });
 
-// NOVA UI: Menus horizontais, limpos, sem sobreposição
+// NEW UI: Clean, horizontal menus without overlapping.
 const oldPalette = document.querySelector('.palette-menu');
 if (oldPalette) oldPalette.remove();
 const oldTexture = document.querySelector('.texture-menu');
@@ -635,12 +635,12 @@ loadBtn.onclick = () => {
     input.click();
 };
 
-// === PALETA FIXA DE TEXTURAS (NÃO EDITÁVEL) ===
+// === Fixed texture palette (non-editable) ===
 const fixedTextureFolders = [
     { name: 'Brick', path: 'Textures/Roads/Brick', files: [
         'T1-Brick-1.png','T1-Brick-2.png','T1-Brick-3.png','T1-Decorative-Brick-1.png','T2-Brick-1.png','T3-Brick-1.png','T3-Brick-2.png','T3-Decorative-Brick-1.png','T3-Decorative-Brick-2.png'] },
     { name: 'Stone', path: 'Textures/Roads/Stone', files: [
-        'T1-Cobblestone-1.png','T1-Cobblestone-2.png','T1-Cobblestone-3.png','T1-Gravel-1.png','T1-Gravel-2.png','T1-Gravel-3.png','T1-Stone-1.png','T1-Stone-2.png','T1-Stone-3.png','T2-Cobblestone-1.png','T2-Cobblestone-2.png','T2-Gravel-1.png','T2-Gravel-2.png','T2-Stone-1.png','T2-Stone-2.png','T2-Stone-3.png','T2-Stone-4.png','T3-Cobblestone-1.png','T3-Cobblestone-2.png','T3-Gravel-1.png','T3-Gravel-2.png','T3-Stone-1.png','T3-Stone-2.png','T4-Cobblestone-1.png','T4-Cobblestone-2.png','T4-Cobblestone-3.png','T4-Cobblestone-4.png','T4-Gravel-1.png','T4-Gravel-2.png','T4-Stone-1.png','T4-Stone-2.png','T4-Stone-3.png'] },
+        'T1-Cobblestone-1.png','T1-Cobblestone-2.png','T1-Cobblestone-3.png','T1-Gravel-1.png','T1-Gravel-2.png','T1-Gravel-3.png','T1-Stone-1.png','T1-Stone-2.png','T1-Stone-3.png','T2-Cobblestone-1.png','T2-Cobblestone-2.png','T2-Gravel-1.png','T2-Gravel-2.png','T2-Stone-1.png','T2-Stone-2.png','T2-Stone-3.png','T2-Stone-4.png','T3-Cobblestone-1.png','T3-Cobblestone-2.png','T3-Gravel-1.png','T3-Gravel-2.png','T3-Stone-1.png','T3-Stone-2.png','T4-Cobblestone-1.png','T4-Cobblestone-2.png','T4-Cobblestone-3.png','T4-Cobblestone-4.png','T4-Gravel-1.png','T4-Gravel-2.png','T4-Stone-1.png','T4-Stone-2.png','T4-Stone-3.png','T5-Stone-1.png'] },
     { name: 'Wood', path: 'Textures/Roads/Wood', files: [
         'T1-Decorative-Wood-1.png','T1-Plank-1.png','T1-Plank-2.png','T1-Wood-1.png','T1-Wood-2.png','T2-Decorative-Wood-1.png','T2-Plank-1.png','T2-Plank-2.png','T2-Wood-1.png','T2-Wood-2.png','T2-Wood-3.png','T3-Wood-1.png','T3-Decorative-Wood-1.png','T3-Wood-2.png','T4-Decorative-Wood-1.png','T4-Wood-1.png','T4-Wood-2.png','T4-Wood-3.png'] }
 ];
@@ -649,7 +649,7 @@ function getValidImages(images) {
     return images.filter(img => img && typeof img.src === 'string' && img.src.length > 0 && !img.invalid);
 }
 
-// FUNÇÃO CORRIGIDA PARA AGRUPAMENTO DE TEXTURAS
+// FIXED FUNCTION FOR TEXTURE GROUPING
 function groupFixedTextures(files, category) {
     const groups = {};
     files.forEach(file => {
@@ -657,7 +657,7 @@ function groupFixedTextures(files, category) {
         if (!cleanFile.endsWith('.png')) return;
         if (category === 'Wood' && !(/Plank|Wood|Decorative/i.test(cleanFile))) return;
         if (category === 'Stone' && !(/Gravel|Cobble|Stone/i.test(cleanFile))) return;
-        // Brick não filtra nada
+        // Brick doesn't filter anything.
         const match = cleanFile.match(/^(.*?)-\d+\.png$/i);
         const prefix = match ? match[1] : cleanFile.replace(/\.png$/i, '');
         if (!groups[prefix]) groups[prefix] = [];
@@ -676,7 +676,7 @@ fixedTextureFolders.forEach(folder => {
             img.onerror = function() { img.invalid = true; };
             return img;
         });
-        // Preview: sempre tenta pegar o -1.png, se não existir pega o primeiro válido
+        // Preview: always tries to get the -1.png file; if it doesn't exist, it gets the first valid one.
         let previewImg = images.find(img => /-1\.png$/i.test(img.src) && !img.invalid) || getValidImages(images)[0] || images[0];
         return { name: key.replace(/T(\d+)-/, 'T$1 '), images, previewImg };
     });
@@ -692,7 +692,7 @@ function renderFixedTexturePalette() {
     }
     fixedMenu.innerHTML = '';
 
-    // Container para cor e borracha
+    // Container for color and eraser
     const topTools = document.createElement('div');
     topTools.style.display = 'flex';
     topTools.style.flexDirection = 'row';
@@ -700,7 +700,7 @@ function renderFixedTexturePalette() {
     topTools.style.gap = '10px';
     topTools.style.marginBottom = '8px';
 
-    // Botão Cor
+    // Color Button
     const colorBtn = document.createElement('button');
     colorBtn.textContent = 'Color';
     colorBtn.className = 'fixed-palette-title' + (selectedFixedTexturePalette === null && !window.isEraserSelected ? ' active' : '');
@@ -714,7 +714,7 @@ function renderFixedTexturePalette() {
     };
     topTools.appendChild(colorBtn);
 
-    // Botão Borracha
+    // Eraser Button
     const eraserBtn = document.createElement('button');
     eraserBtn.className = 'fixed-palette-title' + (window.isEraserSelected ? ' active' : '');
     eraserBtn.title = 'Borracha';
@@ -762,7 +762,7 @@ function renderFixedTexturePalette() {
                     window.isEraserSelected = false;
                     renderFixedTexturePalette();
                 };
-                // Mostra só a primeira imagem válida como ícone
+                // Only show the first valid image as an icon.
                 const validImgs = getValidImages(tex.images);
                 let thumb;
                 if (validImgs.length > 0) {
@@ -775,7 +775,7 @@ function renderFixedTexturePalette() {
                     thumb.style.border = validImgs[0].invalid ? '2px solid #e57373' : '1px solid #222';
                     thumb.title = validImgs[0].invalid ? 'Imagem não carregada' : tex.name;
                 } else {
-                    // Placeholder visual se não houver imagem válida
+                    // Visual placeholder if there is no valid image.
                     thumb = document.createElement('canvas');
                     thumb.width = 24;
                     thumb.height = 24;
@@ -790,7 +790,7 @@ function renderFixedTexturePalette() {
                     pctx.stroke();
                 }
                 texBtn.appendChild(thumb);
-                // Não adiciona texto, só o ícone
+                // It doesn't add text, only the icon.
                 texList.appendChild(texBtn);
             });
         }
@@ -799,11 +799,11 @@ function renderFixedTexturePalette() {
     });
 }
 
-// Remove botão borracha do topbar se existir
+// Remove the Eraser button from the top bar if present.
 const topbarEraserBtn = document.getElementById('eraserTopBtn');
 if (topbarEraserBtn) topbarEraserBtn.remove();
 
-// Clique corrigido para paleta fixa (scaling e comparação por src)
+// Click corrected for fixed palette (scaling and comparison by src)
 canvas.addEventListener('click', function(e) {
     const rect = canvas.getBoundingClientRect();
     const scaleX = canvas.width / rect.width;
@@ -815,17 +815,17 @@ canvas.addEventListener('click', function(e) {
         for (let col = 0; col < cols; col++) {
             const { x, y } = getHexPosition(row, col);
             if (pointInHex(mx, my, x, y)) {
-                // Borracha
+                // Eraser
                 if (window.isEraserSelected) {
                     grid[row][col].texture = null;
                     grid[row][col].color = '#4fc3f7';
                 }
-                // Paleta fixa
+                // Fixed palette
                 if (selectedFixedTexturePalette !== null) {
                     const pal = fixedTexturePalette[selectedFixedTexturePalette];
                     const tex = pal.textures[selectedFixedTexture];
                     const validImgs = getValidImages(tex.images);
-                    // Alterna textura a cada clique
+                    // Change texture with each click.
                     cellTextureIndexes[row][col] = (cellTextureIndexes[row][col] + 1) % validImgs.length;
                     let img = validImgs[cellTextureIndexes[row][col]];
                     if (img && typeof img.src === 'string' && img.src.length > 0 && !img.invalid) {
@@ -836,7 +836,7 @@ canvas.addEventListener('click', function(e) {
                         grid[row][col].color = '#e57373'; // cor de erro
                     }
                 }
-                // Paleta customizada
+                // Custom palette
                 else if (useTexture && selectedTextureFolder !== null && texturePalette[selectedTextureFolder].images.length > 0) {
                     const folder = texturePalette[selectedTextureFolder];
                     const validImgs = getValidImages(folder.images);
@@ -850,12 +850,12 @@ canvas.addEventListener('click', function(e) {
                         grid[row][col].color = '#e57373'; // cor de erro
                     }
                 }
-                // Cor
+                // Color
                 else if (currentColor) {
                     grid[row][col].texture = null;
                     grid[row][col].color = currentColor;
                 }
-                // Nenhuma cor selecionada
+                // No color selected
                 else {
                     grid[row][col].texture = null;
                     grid[row][col].color = '#4fc3f7';
@@ -894,20 +894,20 @@ canvas.addEventListener('mousemove', function(e) {
         for (let col = 0; col < cols; col++) {
             const { x, y } = getHexPosition(row, col);
             if (pointInHex(mx, my, x, y)) {
-                // Evita repetir célula
+                // Avoid repeating cell
                 if (lastCell && lastCell.row === row && lastCell.col === col) return;
                 lastCell = { row, col };
-                // Borracha
+                // Eraser
                 if (window.isEraserSelected) {
                     grid[row][col].texture = null;
                     grid[row][col].color = '#4fc3f7';
                 }
-                // Paleta fixa
+                // Fixed palette
                 else if (selectedFixedTexturePalette !== null) {
                     const pal = fixedTexturePalette[selectedFixedTexturePalette];
                     const tex = pal.textures[selectedFixedTexture];
                     const validImgs = getValidImages(tex.images);
-                    // Alterna textura a cada novo hexágono tocado no arraste
+                    // Alternate texture with each new hexagon touched during dragging.
                     let idx = cellTextureIndexes[row][col];
                     idx = (idx + 1) % validImgs.length;
                     cellTextureIndexes[row][col] = idx;
@@ -920,11 +920,11 @@ canvas.addEventListener('mousemove', function(e) {
                         grid[row][col].color = '#e57373';
                     }
                 }
-                // Paleta customizada
+                // Custom palette
                 else if (useTexture && selectedTextureFolder !== null && texturePalette[selectedTextureFolder].images.length > 0) {
                     const folder = texturePalette[selectedTextureFolder];
                     const validImgs = getValidImages(folder.images);
-                    // Alterna textura a cada novo hexágono tocado no arraste
+                    // Alternate texture with each new hexagon touched during dragging.
                     let idx = cellTextureIndexes[row][col];
                     idx = (idx + 1) % validImgs.length;
                     cellTextureIndexes[row][col] = idx;
@@ -937,12 +937,12 @@ canvas.addEventListener('mousemove', function(e) {
                         grid[row][col].color = '#e57373';
                     }
                 }
-                // Cor
+                // Color
                 else if (currentColor) {
                     grid[row][col].texture = null;
                     grid[row][col].color = currentColor;
                 }
-                // Nenhuma cor selecionada
+                // No color selected
                 else {
                     grid[row][col].texture = null;
                     grid[row][col].color = '#4fc3f7';

@@ -116,8 +116,8 @@ body {
     min-width: 0;
     min-height: 0;
     position: relative;
-    overflow: auto; /* Permite rolagem se a grade for maior que a área */
-    padding: 24px; /* Espaço ao redor do canvas para centralizar melhor */
+    overflow: auto; /* Allows scrolling if the grid is larger than the area. */
+    padding: 24px; /* Space around the canvas for better centering. */
 }
 
 canvas {
