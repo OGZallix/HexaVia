@@ -638,13 +638,13 @@ loadBtn.onclick = () => {
 // === Fixed texture palette (non-editable) ===
 const fixedTextureFolders = [
     { name: 'Gilded', path: 'Textures/Roads/Gilded', files: [
-        'Understated1.png'] },
+        'T1-Modest-1.png','T1-Modest-2.png','T1-Understated-1.png','T1-Understated-2.png','T1-Lavish-1.png','T1-Lavish-2.png','T1-Fancy-1.png','T1-Fancy-2.png','T1-Resplended-1.png','T1-Resplended-2.png'] },
     { name: 'Brick', path: 'Textures/Roads/Brick', files: [
-        'T1-Brick-1.png','T1-Brick-2.png','T1-Brick-3.png','T1-Decorative-Brick-1.png','T2-Brick-1.png','T3-Brick-1.png','T3-Brick-2.png','T3-Decorative-Brick-1.png','T3-Decorative-Brick-2.png'] },
+        'T1-Brick-1.png','T1-Brick-2.png','T1-Brick-3.png','T1-Decorative-Brick-1.png','T1-Decorative-Brick-2.png','T2-Brick-1.png','T3-Brick-1.png','T3-Brick-2.png','T3-Decorative-Brick-1.png','T3-Decorative-Brick-2.png','T4-Decorative-Brick-1.png','T4-Decorative-Brick-2.png','T5-Brick-1.png','T5-Brick-1.png','T5-Brick-2.png','T5-Brick-3.png','T5-Decorative-Brick-1.png','T5-Decorative-Brick-2.png'] },
     { name: 'Stone', path: 'Textures/Roads/Stone', files: [
-        'T1-Cobblestone-1.png','T1-Cobblestone-2.png','T1-Cobblestone-3.png','T1-Gravel-1.png','T1-Gravel-2.png','T1-Gravel-3.png','T1-Stone-1.png','T1-Stone-2.png','T1-Stone-3.png','T2-Cobblestone-1.png','T2-Cobblestone-2.png','T2-Gravel-1.png','T2-Gravel-2.png','T2-Stone-1.png','T2-Stone-2.png','T2-Stone-3.png','T2-Stone-4.png','T3-Cobblestone-1.png','T3-Cobblestone-2.png','T3-Gravel-1.png','T3-Gravel-2.png','T3-Stone-1.png','T3-Stone-2.png','T4-Cobblestone-1.png','T4-Cobblestone-2.png','T4-Cobblestone-3.png','T4-Cobblestone-4.png','T4-Gravel-1.png','T4-Gravel-2.png','T4-Stone-1.png','T4-Stone-2.png','T4-Stone-3.png','T6-Stone-1.png','T6-Stone-2.png','T6-Gravel-1.png'] },
+        'T1-Cobblestone-1.png','T1-Cobblestone-2.png','T1-Cobblestone-3.png','T1-Gravel-1.png','T1-Gravel-2.png','T1-Gravel-3.png','T1-Stone-1.png','T1-Stone-2.png','T1-Stone-3.png','T2-Cobblestone-1.png','T2-Cobblestone-2.png','T2-Gravel-1.png','T2-Gravel-2.png','T2-Stone-1.png','T2-Stone-2.png','T2-Stone-3.png','T2-Stone-4.png','T3-Cobblestone-1.png','T3-Cobblestone-2.png','T3-Gravel-1.png','T3-Gravel-2.png','T3-Stone-1.png','T3-Stone-2.png','T4-Cobblestone-1.png','T4-Cobblestone-2.png','T4-Cobblestone-3.png','T4-Cobblestone-4.png','T4-Gravel-1.png','T4-Gravel-2.png','T4-Stone-1.png','T4-Stone-2.png','T4-Stone-3.png','T6-Cobblestone-1.png','T6-Gravel-1.png','T6-Stone-1.png','T6-Stone-2.png'] },
     { name: 'Wood', path: 'Textures/Roads/Wood', files: [
-        'T1-Decorative-Wood-1.png','T1-Plank-1.png','T1-Plank-2.png','T1-Wood-1.png','T1-Wood-2.png','T2-Decorative-Wood-1.png','T2-Plank-1.png','T2-Plank-2.png','T2-Wood-1.png','T2-Wood-2.png','T2-Wood-3.png','T3-Wood-1.png','T3-Decorative-Wood-1.png','T3-Wood-2.png','T4-Decorative-Wood-1.png','T4-Wood-1.png','T4-Wood-2.png','T4-Wood-3.png'] }
+        'T1-Decorative-Wood-1.png','T1-Plank-1.png','T1-Plank-2.png','T1-Wood-1.png','T1-Wood-2.png','T2-Decorative-Wood-1.png','T2-Plank-1.png','T2-Plank-2.png','T2-Wood-1.png','T2-Wood-2.png','T2-Wood-3.png','T3-Wood-1.png','T3-Decorative-Wood-1.png','T3-Wood-2.png','T4-Decorative-Wood-1.png','T4-Wood-1.png','T4-Wood-2.png','T4-Wood-3.png','T5-Decorative-Wood-1.png','T5-Wood-1.png','T5-Wood-2.png','T7-Decorative-Wood-1.png','T7-Wood-1.png','T7-Wood-2.png'] }
 ];
 
 function getValidImages(images) {
@@ -657,6 +657,7 @@ function groupFixedTextures(files, category) {
     files.forEach(file => {
         const cleanFile = file.replace(/\s+/g, '');
         if (!cleanFile.endsWith('.png')) return;
+        if (category === 'Gilded' && !(/Understated|Modest|Resplended|Lavish|Fancy/i.test(cleanFile))) return;
         if (category === 'Wood' && !(/Plank|Wood|Decorative/i.test(cleanFile))) return;
         if (category === 'Stone' && !(/Gravel|Cobble|Stone/i.test(cleanFile))) return;
         // Brick doesn't filter anything.
